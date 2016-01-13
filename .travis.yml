@@ -60,12 +60,12 @@ before_install:
   - curl -L https://${DOCKER_INSTALL_URL}/docker-${DOCKER_VERSION} > docker
   - chmod +x docker
   - sudo mv docker /usr/bin
-  - sudo service docker start
+  - sudo service docker start; sleep 3
   - docker version
   - docker info
 
 script:
-  - docker build -t osxcc/golang -f "${GOLANG_VERSION}/Dockerfile".
+  - docker build -t osxcc/golang -f ${GOLANG_VERSION}/Dockerfile .
 
 notifications:
   email: false
