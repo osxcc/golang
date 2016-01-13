@@ -1,4 +1,4 @@
-FROM osxcc/osxcc:10.11-7.2_7C68
+FROM osxcc/osxcc:latest
 MAINTAINER zchee <zchee.io@gmail.com>
 
 ENV CC o64-clang
