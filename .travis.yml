@@ -1,0 +1,74 @@
+services:
+  - docker
+
+language: c
+
+matrix:
+  include:
+
+  - sudo: required
+    dist: trusty
+    compiler: clang
+    env:
+    - GOLANG_VERSION=1.5.2
+    - DOCKER_VERSION=1.9.1
+    - DOCKER_INSTALL_URL="get.docker.com/builds/$(uname -s)/$(uname -m)"
+
+  - sudo: required
+    dist: trusty
+    compiler: clang
+    env:
+    - GOLANG_VERSION=1.6beta1
+    - DOCKER_VERSION=1.9.1
+    - DOCKER_INSTALL_URL="get.docker.com/builds/$(uname -s)/$(uname -m)"
+
+  - sudo: required
+    dist: trusty
+    compiler: clang
+    env:
+    - GOLANG_VERSION=devel
+    - DOCKER_VERSION=1.9.1
+    - DOCKER_INSTALL_URL="get.docker.com/builds/$(uname -s)/$(uname -m)"
+
+  - sudo: required
+    dist: trusty
+    compiler: clang
+    env:
+    - GOLANG_VERSION=1.5.2
+    - DOCKER_VERSION=1.10.0-dev
+    - DOCKER_INSTALL_URL=master.dockerproject.org/linux/amd64
+
+  - sudo: required
+    dist: trusty
+    compiler: clang
+    env:
+    - GOLANG_VERSION=1.6beta1
+    - DOCKER_VERSION=1.10.0-dev
+    - DOCKER_INSTALL_URL=master.dockerproject.org/linux/amd64
+
+  - sudo: required
+    dist: trusty
+    compiler: clang
+    env:
+    - GOLANG_VERSION=devel
+    - DOCKER_VERSION=1.10.0-dev
+    - DOCKER_INSTALL_URL=master.dockerproject.org/linux/amd64
+
+before_install:
+  - sudo service docker stop
+  - sudo rm $(which -a docker)
+  - curl -L https://${DOCKER_INSTALL_URL}/docker-${DOCKER_VERSION} > docker
+  - chmod +x docker
+  - sudo mv docker /usr/bin
+  - sudo service docker start
+  - docker version
+  - docker info
+
+script:
+  - docker build -t osxcc/golang -f "${GOLANG_VERSION}/Dockerfile".
+
+notifications:
+  email: false
+  slack:
+    rooms:
+      secure: LTJnpkxS3ql0VPK2Hao91X9imhpfa2H3FFpi2WBYtX4n5SscK/b+pdlmqp0LBhX8A4uHb6TEaLlH0lpw++YaZdPj98xctbieRuGbT83AXV9n207bGgC8a861xAhR9Q7jQ0spRN2WNYUw5gPKCmncfAXOx2W+6bjzktEKJGycfAyqQMz7nj38BvXAJ8z5MkwlAjKAEhFtUKYv858E5wMrOzNr8bWEB3dAFUeY8f2V5Iat3ciT6Eq5dAHJM3zQUnr/1AbPToKSd9YZozZrm3pqtTL+590KTXxTON8kjvIHieGa++1PZiJteQjrP3Gu8qpBnFPEeApI280n3UxBNiGU16rL0LLwy6O60k9QsbiVWGtglPvVXu/eKAzjd0YI1lC6ZAqFPcG86GWhzEt5hLyIrZaVrFBiiyPHntna9SZkirkuQemQkJF5jrccMSg2UezN4slqrBLJzXAmLcjPmpLNlQekTCQNfY8hUfLUl5rY+Qidf+EvdIrduApM6YiTVpc0srtuWoKncDIZStcBp6w5wlgEJdYOOG/ILDt6tUr1Bfx2raILNJc3gDRg4B2emelL7dMENB2do1y8u9XTQiHIDnOx2UpSkIWLL+ONTcLeyJ7oRsmIOd2zynuZmrtsUzs2eRS80i4G0f5JdaSr34l/IaLLQpy4XHIr6iNx+He3tDQ=
