@@ -10,7 +10,7 @@ matrix:
     dist: trusty
     compiler: clang
     env:
-    - GOLANG_VERSION=1.5.2
+    - GOLANG_VERSION=1.5.3
     - DOCKER_VERSION=1.9.1
     - DOCKER_INSTALL_URL="get.docker.com/builds/$(uname -s)/$(uname -m)"
 
@@ -18,7 +18,7 @@ matrix:
     dist: trusty
     compiler: clang
     env:
-    - GOLANG_VERSION=1.6beta1
+    - GOLANG_VERSION=1.6beta2
     - DOCKER_VERSION=1.9.1
     - DOCKER_INSTALL_URL="get.docker.com/builds/$(uname -s)/$(uname -m)"
 
@@ -34,7 +34,7 @@ matrix:
     dist: trusty
     compiler: clang
     env:
-    - GOLANG_VERSION=1.5.2
+    - GOLANG_VERSION=1.5.3
     - DOCKER_VERSION=1.10.0-dev
     - DOCKER_INSTALL_URL=master.dockerproject.org/linux/amd64
 
@@ -42,7 +42,7 @@ matrix:
     dist: trusty
     compiler: clang
     env:
-    - GOLANG_VERSION=1.6beta1
+    - GOLANG_VERSION=1.6beta2
     - DOCKER_VERSION=1.10.0-dev
     - DOCKER_INSTALL_URL=master.dockerproject.org/linux/amd64
 
