@@ -1,5 +1,5 @@
 FROM osxcc/osxcc:latest
-MAINTAINER zchee <zchee.io@gmail.com>
+MAINTAINER zchee <k@zchee.io>
 
 ENV CC=o64-clang \
 	CXX=o64-clang++ \
