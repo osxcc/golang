@@ -4,15 +4,15 @@ MAINTAINER zchee <k@zchee.io>
 ENV CC=o64-clang \
 	CXX=o64-clang++ \
 	\
+	GOLANG_VERSION=1.5.3 \
 	GOPATH=/go \
 	PATH=$GOPATH/bin:/usr/local/go/bin:$PATH \
-	GOOS=darwin \
 	GOARCH=amd64 \
+	GOOS=darwin \
 	CGO_ENABLED=1 \
 	GO15VENDOREXPERIMENT=1 \
 	\
 	GOROOT_BOOTSTRAP=/go1.4.3 \
-	GOLANG_VERSION=1.5.3 \
 	GOLANG_DOWNLOAD_SHA256=43afe0c5017e502630b1aea4d44b8a7f059bf60d7f29dfd58db454d4e4e0ae53
 
 RUN set -ex \
@@ -26,8 +26,11 @@ RUN set -ex \
 	&& tar -C /usr/local -xzf golang.tar.gz \
 	&& rm golang.tar.gz \
 	&& cd /usr/local/go/src \
-	&& CC=clang CXX=clang++ GOOS=linux GOARCH=amd64 ./make.bash \
-	&& CC=o64-clang CXX=o64-clang++ GOOS=darwin GOARCH=amd64 ./make.bash --no-clean \
+	&& CC=/usr/bin/clang \
+		CXX=/usr/bin/clang++ \
+		CC_FOR_TARGET=/osxcross/target/bin/o64-clang \
+		CXX_FOR_TARGET=/osxcross/target/bin/o64-clang++ \
+		./make.bash \
 	&& rm -rf "${GOROOT_BOOTSTRAP}" \
 	&& mkdir -p "${GOPATH}/src" "${GOPATH}/bin" && chmod -R 777 "${GOPATH}"
 
