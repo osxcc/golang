@@ -12,8 +12,8 @@ ENV CC=o64-clang \
 	CGO_ENABLED=1 \
 	GO15VENDOREXPERIMENT=1 \
 	\
-	GOROOT_BOOTSTRAP=/go1.6beta2 \
-	GOROOT_BOOTSTRAP_SHA256=7ddf9797c7baaac2c16eed1a8d42f9a446223301c7dc8771ea805f211828e6a5
+	GOROOT_BOOTSTRAP=/go1.6rc2 \
+	GOROOT_BOOTSTRAP_SHA256=9c19fa0fe32ee9bff79123d47147a5fd15fec451806bf5644a01173a86a8a4b9
 
 RUN set -ex \
 	&& curl -fsSL "https://storage.googleapis.com/golang${GOROOT_BOOTSTRAP}.linux-amd64.tar.gz" -o golang.tar.gz \
